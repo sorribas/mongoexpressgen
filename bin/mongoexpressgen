@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+
+var pkginfo = require('pkginfo')(module, 'version');
+var argv = require('optimist').argv;
+var fs = require('fs');
+var inflection = require('inflection');
+
+if (typeof argv._[0] == 'undefined') {
+  console.log("MongoDB Express Generator " + module.exports.version);
+  console.log("");
+  console.log("To generate the db configuration file: ");
+  console.log("    " + argv['$0'] + " db collection1 collection2 collection3");
+  console.log("");
+  console.log("To generate an API ");
+  console.log("    " + argv['$0'] + " api resourcename");
+  process.exit(0);
+} else {
+
+  // DATABASE FILE GENERATION
+  if(argv._[0] == 'db') {
+    var dbfile = argv._.dbfile || "db.js";
+
+    if (fs.existsSync(dbfile)) {
+      console.log("File "+ dbfile+ " exists. Remove it and try again");
+      process.exit(1);
+    } else {
+      var template = fs.readFileSync(__dirname + "/../db_template.js", {encoding: "utf8"});
+      template = template.replace( new RegExp('DB', 'g'), argv._[1])
+      template = template.replace( new RegExp('COLS', 'g'), JSON.stringify(argv._.slice(2)));
+      fs.writeFileSync(dbfile, template);
+    }
+  } else if (argv._[0] == 'api') {
+    var appfile = argv._.appfile || "app.js";
+
+    if (!fs.existsSync("./routes")) {
+      console.log("The routes directory does not exists. Create it and try again");
+      process.exit(1);
+    } else {
+      var template = fs.readFileSync(__dirname + "/../api_template.js", {encoding: "utf8"});
+      template = template.replace( new RegExp('PLURAL', 'g'), inflection.pluralize(argv._[1]))
+      template = template.replace( new RegExp('SINGULAR', 'g'), inflection.singularize(argv._[1]))
+      fs.writeFileSync( "./routes/" + inflection.pluralize(argv._[1]) + ".js", template);
+
+      var routesTemplate = fs.readFileSync(__dirname + "/../api_routes_template.js", {encoding: "utf8"});
+      routesTemplate = routesTemplate.replace( new RegExp('PLURAL', 'g'), inflection.pluralize(argv._[1]))
+
+      fs.appendFileSync(appfile, routesTemplate);
+    }
+  }
+}
