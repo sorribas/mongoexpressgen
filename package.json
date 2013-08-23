@@ -1,7 +1,7 @@
 {
   "name": "mongoexpressgen",
   "description": "Small generators for APIs and CRUDS with Express and MongoDB",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "optimist": "*",
     "pkginfo": "*",
