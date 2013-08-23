@@ -9,7 +9,7 @@ if (typeof argv._[0] == 'undefined') {
   console.log("MongoDB Express Generator " + module.exports.version);
   console.log("");
   console.log("To generate the db configuration file: ");
-  console.log("    " + argv['$0'] + " db collection1 collection2 collection3");
+  console.log("    " + argv['$0'] + " db dbname collection1 collection2");
   console.log("");
   console.log("To generate an API ");
   console.log("    " + argv['$0'] + " api resourcename");
