@@ -16,7 +16,7 @@ The first thing you have to do is generate your express app and add the mongojs 
 
 ```
 mkdir myapp
-cd my app
+cd myapp
 express
 # edit the package.json to add the mongojs dependency
 npm install
