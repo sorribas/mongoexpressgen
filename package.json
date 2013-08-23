@@ -10,4 +10,8 @@
   "bin": {
     "mongoexpressgen": "./bin/mongoexpressgen"
   }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sorribas/mongoexpressgen"
+  }
 }
