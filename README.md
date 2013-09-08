@@ -28,7 +28,7 @@ After that you can start using the generators to generate your db configuration 
 mongoexpressgen db atlasdb countries cities
 ```
 
-where `atlasdb` is the name of the MongoDB database and `countries` and `cities` are the name of the collections in said database.
+where `atlasdb` is the name of the MongoDB database and `countries` and `cities` are the names of the collections in said database.
 
 After that you can generate a RESTful API with the generator.
 
